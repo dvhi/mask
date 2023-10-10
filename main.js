@@ -21,7 +21,7 @@ function take_snapshot() {
 console.log('ml5 version:', ml5.version);
 
 //create your model and store it in var classifier 
-
+var classifier = ml5.imageClassifier('https://storage.googleapis.com/tm-model/JiCnMynGt/model.json' , modelLoaded);
 //define function modelLoaded
 function modelLoaded()
 {
@@ -42,6 +42,15 @@ function gotResult(error, results)
         console.error(error);
     } else {
         console.log(results);
-        
+        document.getElementById("status").innerHTML = results[0].label;
+        prediction_1 = results[0].label;
+
+        if (results[0].label == "Entry Accepted") {
+            document.getElementById("update_emoji").innerHTML = "&#x1F637;";
+        }
+
+        if(results[0].label == "Entry Denied") {
+            document.getElementById("update_emoji").innerHTML = "&#x26d4;";
+        }
     }
 }
